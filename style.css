@@ -1,77 +1,109 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #2c3e50;
-  margin: 0; padding: 20px;
+  background: #455366;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 .calendar {
+  margin-top: 120px;
   display: grid;
-  grid-template-columns: repeat(6, 80px);
-  grid-gap: 15px;
+  grid-template-columns: repeat(3, 100px);
+  grid-gap: 24px;
 }
 
 .door {
   background: #c0392b;
   color: white;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   text-align: center;
-  padding: 20px 0;
-  font-size: 20px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  padding: 28px 0;
+  font-size: 22px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   user-select: none;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.13s;
+  outline: none;
+  border: none;
 }
-
 .door.locked {
-  background: #7f8c8d;
-  cursor: not-allowed;
+  background: #808b96;
+  color: #f0f3f4;
+  pointer-events: none;
 }
-
-.door:hover:not(.locked) {
+.door:hover:not(.locked), .door:active:not(.locked) {
   background: #e74c3c;
+  transform: scale(1.05);
 }
 
-/* Modal */
+/* Modal y Blur */
 .modal-background {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(44, 62, 80, 0.7);
   backdrop-filter: blur(6px);
   display: none;
   justify-content: center;
   align-items: center;
-  z-index: 100;
+  z-index: 1000;
 }
-
 .modal-background.active {
   display: flex;
 }
-
+@keyframes popupscale {
+  0% { transform: scale(0.7);}
+  100% { transform: scale(1);}
+}
 .modal-content {
   background: #fff;
-  padding: 25px;
-  border-radius: 12px;
-  max-width: 400px;
-  max-height: 500px;
+  padding: 28px 32px 26px 32px;
+  border-radius: 16px;
+  box-shadow: 0 6px 28px rgba(0,0,0,0.19);
+  max-width: 390px;
+  max-height: 480px;
   overflow-y: auto;
   text-align: center;
   position: relative;
+  animation: popupscale 0.23s cubic-bezier(.52,1.52,.55,.91);
 }
 
 .modal-content h2 {
   margin-top: 0;
   color: #c0392b;
+  margin-bottom: 10px;
 }
-
 .close-btn {
   position: absolute;
-  top: 10px; right: 15px;
-  font-size: 22px;
+  top: 10px; right: 18px;
+  font-size: 27px;
   cursor: pointer;
   color: #c0392b;
+  font-weight: bold;
+  background: none;
+  border: none;
+  outline: none;
+  transition: color 0.2s;
+}
+.close-btn:hover {
+  color: #922b21;
+}
+
+a {
+  color: #922b21;
+  text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+  .calendar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .modal-content {
+    max-width: 85vw;
+    padding: 20px;
+  }
 }

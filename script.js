@@ -1,40 +1,43 @@
 const calendarEl = document.getElementById('calendar');
 const modalBg = document.getElementById('modalBg');
-const modalContent = document.getElementById('modalContent');
 const modalTitle = document.getElementById('modalTitle');
 const modalBody = document.getElementById('modalBody');
 const closeModalBtn = document.getElementById('closeModal');
 
-// Contenido de las puertas (3 como ejemplo)
+// Contenido de las puertas (ejemplo romántico y creativo)
 const doors = [
   {
     day: 1,
     title: 'Día 1: Una pista musical',
-    content: `<p>🎵 Escucha esta canción especial para el comienzo: <br><br>
-    <a href="https://www.youtube.com/watch?v=3JWTaaS7LdU" target="_blank">Nat King Cole - The Christmas Song</a></p>`
+    content: `<p style="font-size:1.2em;">🎵 Escucha <b>el inicio de nuestra aventura</b> con esta canción especial:<br><br>
+      <a href="https://www.youtube.com/watch?v=3JWTaaS7LdU" target="_blank">Nat King Cole - The Christmas Song</a></p>`
   },
   {
     day: 2,
     title: 'Día 2: Un enigma para ti',
-    content: `<p>¿Qué ciudad española se conoce por sus calles vibrantes y su famoso Palacio Real?<br><br>Piensa un poco…</p>`
+    content: `<p>¿Qué ciudad española se conoce por sus calles vibrantes y su famoso Palacio Real?</p>
+      <p style="font-size:1.1em;color:#b03a2e;">Pista: Allí la vida es un “bocadillo de calamares”.</p>`
   },
   {
     day: 3,
     title: 'Día 3: Mensaje romántico',
-    content: `<p>Cada día contigo es un recuerdo que atesoro. ¿Sabías que nuestras mejores aventuras apenas comienzan?</p>`
+    content: `<p style="font-size:1.15em;">Cada día contigo es un nuevo recuerdo. <br>¿Sabías que nuestras <b>mejores aventuras</b> apenas comienzan?<br><br>
+      (¿Te imaginas el próximo destino?)</p>`
   },
 ];
 
 // Función para comprobar si la puerta debe desbloquearse
 function isUnlocked(day) {
   const now = new Date();
-  const unlockDate = new Date(now.getFullYear(), 11, day, 11, 30, 0); // Diciembre (11), día, 11:30 AM
+  const year = now.getFullYear();
+  // Fecha: diciembre (mes 11 en JS) del año actual, "día", 11:30
+  const unlockDate = new Date(year, 11, day, 11, 30, 0);
   return now >= unlockDate;
 }
 
 // Crear las puertas
 doors.forEach(door => {
-  const doorEl = document.createElement('div');
+  const doorEl = document.createElement('button');
   doorEl.classList.add('door');
   doorEl.textContent = door.day;
   if (!isUnlocked(door.day)) {
@@ -48,7 +51,7 @@ doors.forEach(door => {
   calendarEl.appendChild(doorEl);
 });
 
-// Abrir modal
+// Modal
 function openModal(title, content) {
   modalTitle.innerHTML = title;
   modalBody.innerHTML = content;
@@ -59,10 +62,9 @@ function openModal(title, content) {
 closeModalBtn.addEventListener('click', () => {
   modalBg.classList.remove('active');
 });
-
-// Cerrar modal clic fuera contenido
 modalBg.addEventListener('click', (e) => {
   if (e.target === modalBg) {
     modalBg.classList.remove('active');
   }
 });
+
